@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Edit {{editUser.name}} User</title>
+</head>
+
+<body>
+
+<p><a href='{{url_for('disconnect')}}'>Log Out</a></p>
+<p><a>Logged in as: {{userEmail}}</a></p>
+<img src="{{userPicture}}" alt="SME Logo" style="width:50px;height:50px">
+<p><a href='{{url_for('departments')}}'>Home</a></p>
+<h1> Edit {{editUser.name}} User</h1>
+
+<form action="{{url_for('editUser', user_id=user_id)}}" method = 'POST'>
+
+<p>Name:</p>
+<input type='text' size='30' name='name' placeholder='{{editUser.name}}' autofocus></br>
+</br>
+<p>eMail:</p>
+<input type='text' size='30' name='email' placeholder='{{editUser.email}}'></br>
+</br>
+
+<input type='submit' value='Update'>
+
+<p><a href='{{url_for('allUsers')}}'>Cancel</a></p>
+
+</form>
+
+</body>
+
+</html>

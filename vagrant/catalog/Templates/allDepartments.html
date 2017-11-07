@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel=icon type=image/png href="{{ url_for('static', filename='anon.png') }}">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Departments</title>
+</head>
+
+<body>
+
+<header>
+  {%if 'username' not in session %}
+    <a href="{{url_for('showLogin')}}">Click Here to Login </a>
+  {% else %}
+    <a href="{{url_for('disconnect')}}">Logout </a>
+  {% endif %}
+</header>
+
+<p><a href='{{url_for('allUsers')}}'>Users</a></p>
+<p><a>Logged in as: {{userEmail}}</a></p>
+<img src="{{userPicture}}" alt="SME Logo" style="width:50px;height:50px">
+<h1>Departments:</h1>
+<p><a href='{{url_for('newDepartment')}}'>Create New Department</a></p>
+</br>
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+
+<ul>
+{% for message in messages %}
+  {% endfor %}
+</ul>
+<li><strong>{{message}}</strong></li>
+{% endif %}
+{% endwith %}
+
+{% for i in allDep %}
+  {% if loggedUser == i.user_id %}
+
+    <div>
+      <p><a href='{{url_for('departmentApps', department_id = i.id)}}'>{{i.name}}</a></p>
+      <a href='{{url_for('editDepartment', department_id = i.id)}}'>Edit</a>
+      <a href='{{url_for('deleteDepartment', department_id = i.id)}}'>Delete</a>
+      </br>
+    </div>
+
+  {% else %}
+    <div>
+      <p><a href='{{url_for('departmentApps', department_id = i.id)}}'>{{i.name}}</a></p>
+      Not Dept owner
+      </br>
+    </div>
+
+  {% endif %}
+{% endfor %}
+
+</body>
+
+</html>
