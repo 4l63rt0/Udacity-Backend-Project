@@ -1,3 +1,45 @@
-<div class="top">
-  <p>testing</p>
-</div>
+<header>
+  <div class="header_info">
+    <div class="logo_and_name">
+      <div class="logo">
+        <img src="{{ url_for('static', filename='anon.png') }}" alt="KS Logo" style="width:70px;height:70px">
+      </div>
+      <div class="app_name">
+        <p>
+          System Apps
+        </p>
+      </div>
+    </div>
+    <div class='session_info'>
+      <div class="picture">
+        <img src="{{userPicture}}" alt="user_picture" style="width:50px;height:50px">
+      </div>
+      <div class="login_out">
+        {%if 'username' not in session %}
+          <p><a href="{{url_for('showLogin')}}">Click Here to Login </a></p>
+        {% else %}
+          <p><a class="special_header_text" href="{{url_for('disconnect')}}">Logout </a></p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  <div class="divider"></div>
+  <nav class="top_nav_info">
+    <div class="nav_apps">
+      <p class="nav_p">GPS</p>
+    </div>
+    <div class="nav_apps">
+      <p class="nav_p">Badge</p>
+    </div>
+    <div class="nav_apps">
+      <p class="nav_p">Truck</p>
+    </div>
+    <div class="nav_apps">
+      <p class="nav_p">Chemical</p>
+    </div>
+    <div class="nav_apps">
+      <p class="nav_p">B.Display</p>
+    </div>
+  </nav>
+  <div class="divider"></div>
+</header>

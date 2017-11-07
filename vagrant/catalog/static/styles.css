@@ -1,1 +1,96 @@
-p { font-size: 250%; }
+/*color scheme
+#286DA8
+#CD5360
+#B37D4E
+#438496
+#FFFFFF*/
+
+header {
+  background-color: #286DA8;
+  font-family: Arial,sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+
+.header_info {
+  display: flex;
+  flex : 4;
+}
+
+.logo_and_name {
+  display: flex;
+  flex: 3;
+}
+
+.logo {
+  margin: auto;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.app_name {
+  flex: 6;
+  font-weight: bold;
+  margin: auto;
+  font-size: 200%;
+  font: Verdana;
+  color: white;
+}
+
+.session_info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+
+}
+
+.picture {
+  flex: 1;
+  direction: rtl;
+  display: flex;
+  align-items: center;
+  padding-right: 8%;
+  padding-top: 5%;
+}
+
+.login_out {
+  flex: 1;
+  direction: rtl;
+  font-size: 75%;
+  text-align:right;
+  padding-right: 8%;
+}
+
+.special_header_text {
+  text-decoration: none;
+  color: white;
+}
+
+.special_header_text:hover, .special_header_text:active {
+    background-color: #B37D4E;
+    padding: 1px;
+}
+
+.divider {
+  background-color: white;
+  height: 3px;
+}
+
+.top_nav_info {
+  flex: 1;
+  display: flex;
+  background-color: #B37D4E;
+}
+
+.nav_apps {
+  flex: 1;
+  display: flex;
+  justify-content: space-around;
+}
+
+.nav_p {
+  color: white;
+  margin: 5px;
+}

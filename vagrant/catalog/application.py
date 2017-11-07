@@ -332,7 +332,8 @@ def departmentAppsDescJSON(department_id, application_id):
 @app.route('/index')
 @app.route('/main')
 def main():
-    return render_template('main.html')
+    return render_template('main.html', userPicture=login_session['picture'],
+    userName=login_session['username'])
 
 
 @app.route('/departments')
