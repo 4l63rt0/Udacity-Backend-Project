@@ -11,8 +11,15 @@
 <body>
   <div class="container">
     {% include "header.html" %}
-    {% block content %}
-    {% endblock %}
+    <div class="main_section">
+      {% include "left_section.html" %}
+      <div class="divider_width"></div>
+      <div class="right_section">
+        {% block content %}
+        {% endblock %}
+      </div>
+    </div>
+    {% include "footer.html" %}
   </div>
 </body>
 </html>
