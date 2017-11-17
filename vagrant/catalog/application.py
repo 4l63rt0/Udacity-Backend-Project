@@ -1,25 +1,14 @@
-from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
-app = Flask(__name__)
-
+from flask import (Flask, render_template, request,
+                   redirect, url_for, flash, jsonify, make_response,
+                   session as login_session)
+import httplib2, json, requests, random, string
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from database_setup import Base, Department, Application, User
+from oauth2client.client import flow_from_clientsecrets, FlowExchangeError
 
-# Imports to get authentification, authorization and usersession
-from flask import session as login_session
-import random, string
-
-
-# Imports for OAuth2.0
-from oauth2client.client import flow_from_clientsecrets
-from oauth2client.client import FlowExchangeError
-import httplib2
-import json
-from flask import make_response
-import requests
 
 app = Flask(__name__)
-
 
 CLIENT_ID = json.loads(
     open('client_secrets.json', 'r').read())['web']['client_id']
@@ -295,7 +284,7 @@ def disconnect():
         return redirect(url_for('departments'))
     else:
         flash("You were not logged in")
-        return redirect(url_for('departments'))
+        return redirect(url_for('index'))
 
 
 # API Endpoint for all departments
@@ -331,9 +320,31 @@ def departmentAppsDescJSON(department_id, application_id):
 @app.route('/')
 @app.route('/index')
 @app.route('/main')
-def main():
-    return render_template('main.html', userPicture=login_session['picture'],
-    userName=login_session['username'])
+def home():
+    return
+
+
+@app.route('/jquery')
+def jquery():
+    return render_template('jquery.html')
+
+
+@app.route('/about')
+def about():
+    if 'username' not in login_session:
+        return render_template('about.html')
+    else:
+        return render_template('about.html',
+            userPicture=login_session['picture'])
+
+
+@app.route('/contactus')
+def contactus():
+    if 'username' not in login_session:
+        return render_template('contactus.html')
+    else:
+        return render_template('contactus.html',
+            userPicture=login_session['picture'])
 
 
 @app.route('/departments')
@@ -399,10 +410,13 @@ def departmentAppsDesc(department_id, application_id):
 
 @app.route('/allUsers')
 def allUsers():
-    # Add code for admin access only
     allUser = session.query(User).all()
     if allUser == []:
         return redirect(url_for('showLogin'))
+    admin = session.query(User).filter_by(id=1).one()
+    if login_session['user_id'] != admin.id:
+        flash("You are not the Admin")
+        return redirect('departments')
     for i in allUser:
         print
     return render_template('allUsers.html', allUser = allUser,
@@ -458,6 +472,9 @@ def editDepartment(department_id):
     if 'username' not in login_session:
         return redirect('/login')
     editedDepartment = session.query(Department).filter_by(id=department_id).one()
+    if login_session['user_id'] !=editedDepartment.user_id:
+        flash("You are not the Department owner")
+        return redirect('/departments')
     if request.method == 'POST':
         if request.form['name']:
             editedDepartment.name = request.form['name']
@@ -479,6 +496,9 @@ def editApp(department_id, application_id):
         return redirect('/login')
     department = session.query(Department).filter_by(id=department_id).one()
     editedApp = session.query(Application).filter_by(id=application_id).one()
+    if login_session['user_id'] != department.user_id:
+        flash("You are not the Department owner")
+        return redirect('/departments')
     if request.method == 'POST':
         if request.form['name']:
             editedApp.name = request.form['name']
@@ -502,7 +522,11 @@ def editApp(department_id, application_id):
 def editUser(user_id):
     if 'username' not in login_session:
         return redirect('/login')
+    admin = session.query(User).filter_by(id=1).one()
     editedUser = session.query(User).filter_by(id=user_id).one()
+    if login_session['user_id'] != admin.id:
+        flash("You are not the Admin")
+        return redirect('departments')
     if request.method == 'POST':
         if request.form['name']:
             editedUser.name = request.form['name']
@@ -525,6 +549,9 @@ def deleteDepartment(department_id):
         return redirect('/login')
     departmentToDelete = session.query(Department).filter_by(id=department_id).one()
     appsToDelete = session.query(Application).filter_by(department_id=department_id).all()
+    if login_session['user_id'] != departmentToDelete.user_id:
+        flash("You are not the Department owner")
+        return redirect('/departments')
     if request.method == 'POST':
         for i in appsToDelete:
             deleteApp(i.department_id, i.id)
@@ -544,6 +571,9 @@ def deleteApp(department_id, application_id):
     if 'username' not in login_session:
         return redirect('/login')
     appToDelete = session.query(Application).filter_by(id=application_id).one()
+    if login_session['user_id'] != appToDelete.user_id:
+        flash("You are not the Department owner")
+        return redirect('/departments')
     if request.method == 'POST':
         session.delete(appToDelete)
         session.commit()
@@ -559,8 +589,12 @@ def deleteApp(department_id, application_id):
 
 @app.route('/user/<int:user_id>/delete/', methods = ['GET', 'POST'])
 def deleteUser(user_id):
+    admin = session.query(User).filter_by(id=1).one()
     userToDelete = session.query(User).filter_by(id=user_id).one()
     depsToDelete = session.query(Department).filter_by(user_id=user_id).all()
+    if login_session['user_id'] != admin.id:
+        flash("You are not the Admin")
+        return redirect('departments')
     if request.method == 'POST':
         for i in depsToDelete:
             deleteDepartment(i.id)

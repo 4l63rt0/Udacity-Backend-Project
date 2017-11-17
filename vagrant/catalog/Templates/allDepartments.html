@@ -1,36 +1,43 @@
 {% extends "main.html" %}
 {% block content %}
 <div class="main_content_RS">
-<p><a href='{{url_for('allUsers')}}'>Users</a></p>
 <h1>Departments:</h1>
-<p><a href='{{url_for('newDepartment')}}'>Create New Department</a></p>
-</br>
+<a class="dep_link" href='{{url_for('newDepartment')}}'>Create New Department</a>
+<br>
 
 {% with messages = get_flashed_messages() %}
 {% if messages %}
+
 <ul>
 {% for message in messages %}
+  <li><strong class="flash_msg">{{message}}</strong></li>
   {% endfor %}
 </ul>
-<li><strong>{{message}}</strong></li>
 {% endif %}
 {% endwith %}
+
+<br>
+<br>
+<br>
 
 {% for i in allDep %}
   {% if loggedUser == i.user_id %}
 
     <div>
-      <p><a href='{{url_for('departmentApps', department_id = i.id)}}'>{{i.name}}</a></p>
-      <a href='{{url_for('editDepartment', department_id = i.id)}}'>Edit</a>
-      <a href='{{url_for('deleteDepartment', department_id = i.id)}}'>Delete</a>
-      </br>
+      <a class="dep_name" href='{{url_for('departmentApps', department_id = i.id)}}'>{{i.name}}</a><br>
+      <a class="dep_link" href='{{url_for('editDepartment', department_id = i.id)}}'>Edit</a>
+      <a class="dep_link" href='{{url_for('deleteDepartment', department_id = i.id)}}'>Delete</a>
+      <br>
+      <br>
     </div>
 
   {% else %}
     <div>
-      <p><a href='{{url_for('departmentApps', department_id = i.id)}}'>{{i.name}}</a></p>
-      Not Dept owner
-      </br>
+      <a class="dep_name" href='{{url_for('departmentApps', department_id = i.id)}}'>{{i.name}}</a>
+      <br>
+      <a class="dep_link">Not Dept owner</a>
+      <br>
+      <br>
     </div>
 
   {% endif %}

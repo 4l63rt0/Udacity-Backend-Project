@@ -1,19 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Delete {{i.name}} Department</title>
-</head>
+{% extends "main.html" %}
+{% block content %}
+<div class="main_content_RS">
 
-<body>
-
-<p><a href='{{url_for('disconnect')}}'>Log Out</a></p>
-<p><a>Logged in as: {{userEmail}}</a></p>
-<img src="{{userPicture}}" alt="SME Logo" style="width:50px;height:50px">
-<p><a href='{{url_for('departments')}}'>Home</a></p>
 <h1> Are you sure you want to delete {{i.name}} Department? </h1>
+<br>
 
 <form action="{{ url_for('deleteDepartment', department_id=i.id)}}" method = 'post'>
 
@@ -22,7 +12,7 @@
 </form>
 
 </br>
-<a href = "{{ url_for('departments')}}">Cancel</a>
-</body>
+<a class="dep_link" href = "{{ url_for('departments')}}">Cancel</a>
 
-</html>
+</div>
+{% endblock %}

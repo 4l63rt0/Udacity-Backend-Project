@@ -1,33 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Edit {{editedApp.name}} App</title>
-</head>
-<body>
+{% extends "main.html" %}
+{% block content %}
+<div class="main_content_RS">
 
-<p><a href='{{url_for('disconnect')}}'>Log Out</a></p>
-<p><a>Logged User: {{userEmail}}</a></p>
-<img src="{{userPicture}}" alt="SME Logo" style="width:50px;height:50px">
-<p><a href='{{url_for('departments')}}'>Home</a></p>
 <h1> Edit {{editedApp.name}} App </h1>
 
-<form action="{{url_for('editApp', department_id=department_id, application_id=application_id)}}" method = 'POST'>
+<form action="{{url_for('editApp', department_id=department_id, application_id=application_id)}}" method = 'POST'><br>
 
-<p>Name:</p>
-<input type='text' size='30' name='name' placeholder='{{editedApp.name}}' autofocus></br>
-<p>Description</p>
-
-<input type='text' size='30' name='description' placeholder='{{editedApp.description}}'></br>
-</br>
-
+<a class="dep_name">Name:</a><br>
+<input type='text' size='30' name='name' placeholder='{{editedApp.name}}' autofocus><br><br>
+<a class="dep_name">Description</a><br>
+<input type='text' size='30' name='description' placeholder='{{editedApp.description}}'><br></br>
 <input type='submit' value='Update'>
-
-<p><a href='{{url_for('departmentApps', department_id = department_id)}}'>Cancel</a></p>
+<a class="dep_link" href='{{url_for('departmentApps', department_id = department_id)}}'>Cancel</a>
 
 </form>
 
-</body>
-</html>
+</div>
+{% endblock %}

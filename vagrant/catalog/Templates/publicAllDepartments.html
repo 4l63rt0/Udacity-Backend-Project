@@ -1,15 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Departments</title>
-</head>
+{% extends "main.html" %}
+{% block content %}
+<div class="main_content_RS">
 
-<body>
-<p><a href='{{url_for('showLogin')}}'>Log In</a></p>
-<h1>Departments:</h1>
+<h1>Departments:</h1></br></br>
 
 {% with messages = get_flashed_messages() %}
 {% if messages %}
@@ -24,12 +17,11 @@
 
 {% for i in allDep %}
 <div>
-<p><a href='{{url_for('departmentApps', department_id = i.id)}}'>{{i.name}}</a></p>
+<a class="dep_link" href='{{url_for('departmentApps', department_id = i.id)}}'>{{i.name}}</a><br><br>
 </div>
 
 
 {% endfor %}
 
-</body>
-
-</html>
+</div>
+{% endblock %}

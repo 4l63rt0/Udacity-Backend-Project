@@ -1,36 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Create New Department</title>
-</head>
+{% extends "main.html" %}
+{% block content %}
 
-<body>
-<p><a href='{{url_for('disconnect')}}'>Log Out</a></p>
-<p><a>Logged in as: {{userEmail}}</a></p>
-<img src="{{userPicture}}" alt="SME Logo" style="width:50px;height:50px">
-<p><a href='{{url_for('departments')}}'>Home</a></p>
-
+<div class="main_content_RS">
 {% if noDep %}
-  <h1>{{noDep}}</h1>
+  <h1>{{noDep}}</h1></br>
 {% else %}
-  <h1> Create New Department </h1>
+  <h1> Create New Department </h1></br>
 {% endif %}
 
 
 <form action="{{url_for('newDepartment')}}" method = 'POST'>
 
-<p>Name:</p>
+<a class="dep_name">Name:</a><br>
 
-<input type='text' size='25' name='name' placeholder='New Name' autofocus>
+<input type='text' size='25' name='name' placeholder='New Name' autofocus><br><br>
 
 <input type='submit' value='Create'>
-</br>
-<p><a href='{{url_for('departments')}}'>Cancel</a></p>
+
+<a class="dep_link" href='{{url_for('departments')}}'>Cancel</a>
 </form>
 
-</body>
-
-</html>
+</div>
+{% endblock %}

@@ -1,20 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>App Description</title>
-</head>
-<body>
+{% extends "main.html" %}
+{% block content %}
+<div class="main_content_RS">
 
-<p><a href='{{url_for('disconnect')}}'>Log Out</a></p>
-<p><a>Logged in as: {{userEmail}}</a></p>
-<img src="{{userPicture}}" alt="SME Logo" style="width:50px;height:50px">
-<p><a href='{{url_for('departments')}}'>Home</a></p>
-<h1>{{apps.name}} App Description</h1>
-
-</br>
+<h1>{{apps.name}} App Description</h1><br>
 
 
 {% with messages = get_flashed_messages() %}
@@ -29,9 +17,10 @@
 {% endwith %}
 
 <div>
-<p>{{apps.description}}</p>
-</br>
+<a class="dep_name">{{apps.description}}</a>
+<br><br>
+<a class="dep_link" href = "{{ url_for('departmentApps', department_id=department.id)}}">Go back</a>
 </div>
 
-</body>
-</html>
+</div>
+{% endblock %}

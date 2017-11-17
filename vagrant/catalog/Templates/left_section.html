@@ -2,16 +2,20 @@
   <header class="logo_Left_section">
     <img class="logo" src="{{ url_for('static', filename='anon3.png') }}" alt="KS Logo" style="width:80px;height:65px">
   </header>
-  <div class="left_section_links button"><span>Home</span></div>
-  <div class="left_section_links button"><span>About</span></div>
-  <div class="left_section_links button"><span>Contact Us</span></div>
-  <div class="left_section_links button"><span>Apps</span></div>
+  <a class="no_underline" href="/main"><button class="left_section_links button"><span>Home</span></button></a>
+  <a class="no_underline" href="/about"><button class="left_section_links button"><span>About</span></button></a>
+  <a class="no_underline" href="/contactus"><button class="left_section_links button"><span>Contact Us</span></button></a>
+  <a class="no_underline" href="/departments"><button class="left_section_links button"><span>Departments</span></button></a>
   <div class="logo2">
-    <div>
-      <img class="logo2" src="{{ url_for('static', filename='flogo.png') }}" alt="KS Logo" style="width:40px;height:40px">
-    </div>
-    <div>
-      <img class="logo2" src="{{ url_for('static', filename='glogo.png') }}" alt="KS Logo" style="width:40px;height:40px">
-    </div>
+    {%if 'username' not in session %}
+      <div>
+        <a href="{{url_for('showLogin')}}"><img class="logo2" src="{{ url_for('static', filename='flogo.png') }}" alt="KS Logo" style="width:40px;height:40px"></a>
+      </div>
+      <div>
+        <a href="{{url_for('showLogin')}}"><img class="logo2" src="{{ url_for('static', filename='glogo.png') }}" alt="KS Logo" style="width:40px;height:40px"></a>
+      </div>
+    {% else %}
+      <div></div>
+    {% endif %}
   </div>
 </div>

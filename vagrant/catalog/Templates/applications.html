@@ -1,28 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>{{department.name}} Apps</title>
-</head>
-<body>
-
-<p><a href='{{url_for('disconnect')}}'>Log Out</a></p>
-<p><a>Logged in as: {{userEmail}}</a></p>
-<img src="{{userPicture}}" alt="SME Logo" style="width:50px;height:50px">
-<p><a href='{{url_for('departments')}}'>Home</a></p>
+{% extends "main.html" %}
+{% block content %}
+<div class="main_content_RS">
 <h1>{{department.name}} Apps</h1>
 
 {% if loggedUser == department.user_id %}
 
   <div>
-    <p><a href='{{url_for('newApp', department_id=department.id)}}'>Create New Department</a></p>
+    <a class="dep_link" href='{{url_for('newApp', department_id=department.id)}}'>Create New Department</a></br></br>
     </br>
   </div>
 {% else %}
   <div>
-    You are not the owner of this department...
+    <br>You are not the owner of this department...<br>
     </br>
   </div>
 
@@ -44,17 +33,16 @@
 {% for i in apps %}
 {% if loggedUser == department.user_id %}
   <div>
-    <p><a href='{{url_for('departmentAppsDesc', department_id = department.id, application_id = i.id)}}'>{{i.name}}</a></p>
-    <a href='{{url_for('editApp', department_id = department.id, application_id = i.id)}}'>Edit</a>
-    <a href='{{url_for('deleteApp', department_id = department.id, application_id = i.id)}}'>Delete</a>
+    <a class="dep_name" href='{{url_for('departmentAppsDesc', department_id = department.id, application_id = i.id)}}'>{{i.name}}</a><br>
+    <a class="dep_link" href='{{url_for('editApp', department_id = department.id, application_id = i.id)}}'>Edit</a>
+    <a class="dep_link" href='{{url_for('deleteApp', department_id = department.id, application_id = i.id)}}'>Delete</a><br><br>
   </div>
 {% else %}
   <div>
-    <p><a href='{{url_for('departmentAppsDesc', department_id = department.id, application_id = i.id)}}'>{{i.name}}</a></p>
+    <a class="dep_link" href='{{url_for('departmentAppsDesc', department_id = department.id, application_id = i.id)}}'>{{i.name}}</a><br><br>
   </div>
 {% endif %}
 {% endfor %}
-
-
-</body>
-</html>
+<a class="dep_link" href = "{{ url_for('departments')}}">Go back</a>
+</div>
+{% endblock %}

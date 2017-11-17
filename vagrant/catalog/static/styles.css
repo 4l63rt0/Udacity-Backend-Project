@@ -3,7 +3,8 @@
 #CD5360
 #B37D4E
 #438496
-#FFFFFF*/
+#FFFFFF
+#B8DAE6*/
 
 .container {
   display: flex;
@@ -24,6 +25,11 @@ header, footer{
   font-family: Arial,sans-serif;
   display: flex;
   flex-direction: column;
+}
+
+h1 {
+  color: #white;
+  margin-bottom: 0px;
 }
 
 .header_info {
@@ -147,15 +153,12 @@ background-color: white;
 }
 
 .right_section {
-  flex: 7;
+  flex: 4;
   display: flex;
   flex-direction: column;
-  background-color: #438496;
+  /*background-color: #438496;*/
 }
 
-.right_section_links {
-
-}
 
 .button {
   display: inline-block;
@@ -208,4 +211,21 @@ background-color: white;
   padding-left: 5%;
   color: white;
   margin-bottom: 10%;
+}
+
+.dep_name {
+  font-size: 120%;
+  color: white;
+}
+
+.dep_link {
+  font-size: 75%;
+  color: #B8DAE6;
+}
+ .flash_msg {
+   color #CD5360;
+ }
+
+.no_underline {
+  text-decoration: none;
 }

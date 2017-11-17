@@ -1,18 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Delete {{i.email}} User</title>
-</head>
-<body>
+{% extends "main.html" %}
+{% block content %}
+<div class="main_content_RS">
 
-<p><a href='{{url_for('disconnect')}}'>Log Out</a></p>
-<p><a>Logged in as: {{userEmail}}</a></p>
-<img src="{{userPicture}}" alt="SME Logo" style="width:50px;height:50px">
-<p><a href='{{url_for('departments')}}'>Home</a></p>
-<h1> Are you sure you want to delete {{i.email}} User? </h1>
+<h1> Are you sure you want to delete {{i.email}} User? </h1></br>
 
 <form action="{{ url_for('deleteUser', user_id=i.id)}}" method = 'post'>
 
@@ -22,7 +12,7 @@
 
 </br>
 
-<a href = "{{ url_for('allUsers')}}">Cancel</a>
+<a class="no_underline dep_link" href = "{{ url_for('allUsers')}}">Cancel</a>
 
-</body>
-</html>
+</div>
+{% endblock %}
